@@ -1,5 +1,12 @@
 pipeline {
     agent none
+
+    environment {
+        DOCKER_HUB_USERNAME = credentials('DOCKER_HUB_USERNAME')
+        DOCKER_HUB_PASSWORD = credentials('DOCKER_HUB_PASSWORD')
+        CURRENT_COMMIT = getCommitHash()
+    }
+
     stages {
         stage('Unit tests') {
             agent {
@@ -13,5 +20,11 @@ pipeline {
                 sh './mvnw test'
             }
         }
+    }
+}
+
+def getCommitHash() {
+    node {
+        return sh(script: 'git rev-parse --short HEAD', returnStdout: true)
     }
 }
