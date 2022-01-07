@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_HUB_USERNAME = credentials('zougar')
-        DOCKER_HUB_PASSWORD = credentials('mm')
+        DOCKER_HUB_PASSWORD = credentials('tokendocker')
         CURRENT_COMMIT = getCommitHash()
     }
 
